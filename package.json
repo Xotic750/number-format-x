@@ -1,6 +1,6 @@
 {
   "name": "number-format-x",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Format number module.",
   "homepage": "https://github.com/Xotic750/number-format-x",
   "author": {
@@ -29,6 +29,7 @@
     "url": "https://github.com/Xotic750/number-format-x/issues"
   },
   "dependencies": {
+    "to-integer-x": "^1.2.0"
   },
   "devDependencies": {
     "@xotic750/eslint-config-standard-x": "^1.0.3",
