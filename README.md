@@ -31,7 +31,7 @@ Format a number.
 
 ### `module.exports` ⇒ <code>string</code> ⏏
 Format a given number using fixed-point notation, with user specified digit
-counts and seperators. `ǹull` can be used for optional arguments to demote
+counts and seperators. `ǹull` can be used for optional arguments to denote
 that the default value is to be used.
 
 **Kind**: Exported member  
