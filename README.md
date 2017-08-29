@@ -40,7 +40,7 @@ that the default value is to be used.
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | value | <code>number</code> |  | The numerical value to be formatted. |
-| [digits] | <code>number</code> | <code>20</code> | The number of digits to appear after the  decimal point; this may be a value between 0 and 20, inclusive. |
+| [digits] | <code>number</code> | <code>2</code> | The number of digits to appear after the  decimal point; this may be a value between 0 and 20, inclusive. |
 | [sectionLength] | <code>number</code> | <code>3</code> | Length of integer part sections. |
 | [sectionDelimiter] | <code>string</code> | <code>&quot;,&quot;</code> | Integer part section delimiter. |
 | [decimalDelimiter] | <code>string</code> | <code>&quot;.&quot;</code> | Decimal delimiter. |
@@ -49,8 +49,8 @@ that the default value is to be used.
 ```js
 var numberFormat = require('number-format-x');
 
-numberFormat(12345678.9, 2);  // "12,345,678.90"
-numberFormat(12345678.9, 2, null, '.', ',');  // "12.345.678,90"
+numberFormat(12345678.9, 3);  // "12,345,678.900"
+numberFormat(12345678.9, null, null, '.', ',');  // "12.345.678,90"
 numberFormat(123456.789, 4, 4, ' ', ':');  // "12 3456:7890"
 numberFormat(12345678.9, 0, null, '-');       // "12-345-679"
 ```
