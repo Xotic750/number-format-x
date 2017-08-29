@@ -44,8 +44,8 @@ var $numberFormat = function numberFormat(value) {
  * @param {number} [digits=20] - The number of digits to appear after the
  *  decimal point; this may be a value between 0 and 20, inclusive.
  * @param {number} [sectionLength=3] - Length of integer part sections.
- * @param {string} [sectionDelimiter=","] - Integer part section delimiter.
- * @param {string} [decimalDelimiter="."] - Decimal delimiter.
+ * @param {string} [sectionDelimiter=,] - Integer part section delimiter.
+ * @param {string} [decimalDelimiter=.] - Decimal delimiter.
  * @returns {string} The numerical value with the choosen formatting.
  * @example
  * var numberFormat = require('number-format-x');

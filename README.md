@@ -42,8 +42,8 @@ that the default value is to be used.
 | value | <code>number</code> |  | The numerical value to be formatted. |
 | [digits] | <code>number</code> | <code>20</code> | The number of digits to appear after the  decimal point; this may be a value between 0 and 20, inclusive. |
 | [sectionLength] | <code>number</code> | <code>3</code> | Length of integer part sections. |
-| [sectionDelimiter] | <code>string</code> | <code>&quot;\&quot;,\&quot;&quot;</code> | Integer part section delimiter. |
-| [decimalDelimiter] | <code>string</code> | <code>&quot;\&quot;.\&quot;&quot;</code> | Decimal delimiter. |
+| [sectionDelimiter] | <code>string</code> | <code>&quot;,&quot;</code> | Integer part section delimiter. |
+| [decimalDelimiter] | <code>string</code> | <code>&quot;.&quot;</code> | Decimal delimiter. |
 
 **Example**  
 ```js
