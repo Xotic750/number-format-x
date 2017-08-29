@@ -27,18 +27,18 @@ describe('numberFormat', function () {
   });
 
   it('should format correctly', function () {
-    expect(numberFormat(12345678.9, 2, 3)).toBe('12,345,678.90');
-  });
-
-  it('should format correctly', function () {
-    expect(numberFormat(12345678.9, 2, 3, '.', ',')).toBe('12.345.678,90');
-  });
-
-  it('should format correctly', function () {
+    expect(numberFormat(12345678.9)).toBe('12,345,678.90000000037252902985');
+    expect(numberFormat(12345678.9, 2)).toBe('12,345,678.90');
+    expect(numberFormat(12345678.9, 2, 2)).toBe('12,34,56,78.90');
+    expect(numberFormat(12345678.9, 3, 3, '^')).toBe('12^345^678.900');
+    expect(numberFormat(12345678.9, 3, 3, '.', ',')).toBe('12.345.678,900');
     expect(numberFormat(123456.789, 4, 4, ' ', ':')).toBe('12 3456:7890');
+    expect(numberFormat(12345678.9, 0, 3, '-')).toBe('12-345-679');
   });
 
-  it('should format correctly', function () {
-    expect(numberFormat(12345678.9, 0, 3, '-')).toBe('12-345-679');
+  it('null denotes use default', function () {
+    expect(numberFormat(12345678.9, null, null, null, null)).toBe('12,345,678.90000000037252902985');
+    expect(numberFormat(12345678.9, null, null, null, ':')).toBe('12,345,678:90000000037252902985');
+    expect(numberFormat(12345678.9, 0, null, '-')).toBe('12-345-679');
   });
 });

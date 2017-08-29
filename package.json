@@ -1,6 +1,6 @@
 {
   "name": "number-format-x",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "description": "Format a number.",
   "homepage": "https://github.com/Xotic750/number-format-x",
   "author": {
@@ -29,7 +29,11 @@
     "url": "https://github.com/Xotic750/number-format-x/issues"
   },
   "dependencies": {
-    "to-integer-x": "^1.4.0"
+    "lodash.isnull": "^3.0.0",
+    "math-clamp": "^1.0.0",
+    "to-integer-x": "^2.0.0",
+    "to-number-x": "^1.0.0",
+    "to-string-x": "^1.4.0"
   },
   "devDependencies": {
     "@xotic750/eslint-config-standard-x": "^2.2.1",
