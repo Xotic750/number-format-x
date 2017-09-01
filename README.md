@@ -23,18 +23,18 @@
 ## number-format-x
 Format a number.
 
-**Version**: 2.0.0  
+**Version**: 2.0.1  
 **Author**: Xotic750 <Xotic750@gmail.com>  
 **License**: [MIT](&lt;https://opensource.org/licenses/MIT&gt;)  
 **Copyright**: Xotic750  
 <a name="exp_module_number-format-x--module.exports"></a>
 
-### `module.exports` ⇒ <code>string</code> ⏏
+### `module.exports(value, [digits], [sectionLength], [sectionDelimiter], [decimalDelimiter])` ⇒ <code>string</code> ⏏
 Format a given number using fixed-point notation, with user specified digit
 counts and seperators. `ǹull` can be used for optional arguments to denote
 that the default value is to be used.
 
-**Kind**: Exported member  
+**Kind**: Exported function  
 **Returns**: <code>string</code> - The numerical value with the choosen formatting.  
 
 | Param | Type | Default | Description |

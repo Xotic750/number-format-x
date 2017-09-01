@@ -1,6 +1,6 @@
 /**
  * @file Format a number.
- * @version 2.0.0
+ * @version 2.0.1
  * @author Xotic750 <Xotic750@gmail.com>
  * @copyright  Xotic750
  * @license {@link <https://opensource.org/licenses/MIT> MIT}
@@ -12,28 +12,8 @@
 var toNumber = require('to-number-x');
 var toInteger = require('to-integer-x');
 var toStr = require('to-string-x');
-var mathClamp = require('math-clamp');
+var mathClamp = require('math-clamp-x');
 var isNull = require('lodash.isnull');
-
-var $numberFormat = function numberFormat(value) {
-  var argsLength = arguments.length;
-  // 'digits' must be >= 0 or <=20 otherwise an RangeError is thrown by Number#toFixed.
-  var digits = argsLength > 1 && isNull(arguments[1]) === false ? mathClamp(toInteger(arguments[1]), 0, 20) : 2;
-  // Formats a number using fixed-point notation.
-  var fixed = toNumber(value).toFixed(digits);
-  var sectionLength = argsLength > 2 && isNull(arguments[2]) === false ? toInteger(arguments[2]) : 3;
-  // Formats a number (string) of fixed-point notation, with user delimeters.
-  var sectionDelimiter = argsLength > 3 && isNull(arguments[3]) === false ? toStr(arguments[3]) : ',';
-  var decimalDelimiter = argsLength > 4 && isNull(arguments[4]) === false ? toStr(arguments[4]) : '.';
-  if (decimalDelimiter !== '.') {
-    fixed = fixed.replace('.', decimalDelimiter);
-  }
-
-  return fixed.replace(
-    new RegExp('\\d(?=(\\d{' + sectionLength + '})+' + (digits > 0 ? '\\D' : '$') + ')', 'g'),
-    '$&' + sectionDelimiter
-  );
-};
 
 /**
  * Format a given number using fixed-point notation, with user specified digit
@@ -55,4 +35,22 @@ var $numberFormat = function numberFormat(value) {
  * numberFormat(123456.789, 4, 4, ' ', ':');  // "12 3456:7890"
  * numberFormat(12345678.9, 0, null, '-');       // "12-345-679"
  */
-module.exports = $numberFormat;
+module.exports = function numberFormat(value) {
+  var argsLength = arguments.length;
+  // 'digits' must be >= 0 or <=20 otherwise an RangeError is thrown by Number#toFixed.
+  var digits = argsLength > 1 && isNull(arguments[1]) === false ? mathClamp(toInteger(arguments[1]), 0, 20) : 2;
+  // Formats a number using fixed-point notation.
+  var fixed = toNumber(value).toFixed(digits);
+  var sectionLength = argsLength > 2 && isNull(arguments[2]) === false ? toInteger(arguments[2]) : 3;
+  // Formats a number (string) of fixed-point notation, with user delimeters.
+  var sectionDelimiter = argsLength > 3 && isNull(arguments[3]) === false ? toStr(arguments[3]) : ',';
+  var decimalDelimiter = argsLength > 4 && isNull(arguments[4]) === false ? toStr(arguments[4]) : '.';
+  if (decimalDelimiter !== '.') {
+    fixed = fixed.replace('.', decimalDelimiter);
+  }
+
+  return fixed.replace(
+    new RegExp('\\d(?=(\\d{' + sectionLength + '})+' + (digits > 0 ? '\\D' : '$') + ')', 'g'),
+    '$&' + sectionDelimiter
+  );
+};
