@@ -23,7 +23,7 @@
 ## number-format-x
 Format a number.
 
-**Version**: 2.1.0  
+**Version**: 3.0.0  
 **Author**: Xotic750 <Xotic750@gmail.com>  
 **License**: [MIT](&lt;https://opensource.org/licenses/MIT&gt;)  
 **Copyright**: Xotic750  
@@ -31,8 +31,8 @@ Format a number.
 
 ### `module.exports(value, [digits], [sectionLength], [sectionDelimiter], [decimalDelimiter])` ⇒ <code>string</code> ⏏
 Format a given number using fixed-point notation, with user specified digit
-counts and seperators. `ǹull` can be used for optional arguments to denote
-that the default value is to be used.
+counts and seperators. `null` or 'undefined' can be used for optional
+arguments to denote that the default value is to be used.
 
 **Kind**: Exported function  
 **Returns**: <code>string</code> - The numerical value with the choosen formatting.  
@@ -49,8 +49,8 @@ that the default value is to be used.
 ```js
 var numberFormat = require('number-format-x');
 
-numberFormat(12345678.9, 3);  // "12,345,678.900"
-numberFormat(12345678.9, null, null, '.', ',');  // "12.345.678,90"
-numberFormat(123456.789, 4, 4, ' ', ':');  // "12 3456:7890"
-numberFormat(12345678.9, 0, null, '-');       // "12-345-679"
+numberFormat(12345678.9, 3); // "12,345,678.900"
+numberFormat(12345678.9, null, null, '.', ','); // "12.345.678,90"
+numberFormat(123456.789, 4, 4, ' ', ':'); // "12 3456:7890"
+numberFormat(12345678.9, 0, null, '-'); // "12-345-679"
 ```

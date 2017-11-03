@@ -1,6 +1,6 @@
 /**
  * @file Format a number.
- * @version 2.1.0
+ * @version 3.0.0
  * @author Xotic750 <Xotic750@gmail.com>
  * @copyright  Xotic750
  * @license {@link <https://opensource.org/licenses/MIT> MIT}
@@ -9,16 +9,30 @@
 
 'use strict';
 
-var toNumber = require('to-number-x');
-var toInteger = require('to-integer-x');
+var cachedCtrs = require('cached-constructors-x');
+var RE = cachedCtrs.RegExp;
+var toFixed = cachedCtrs.Number.prototype.toFixed;
+var numberToString = cachedCtrs.Number.prototype.toString;
+var replace = cachedCtrs.String.prototype.replace;
+var split = cachedCtrs.String.prototype.split;
+var strSlice = cachedCtrs.String.prototype.slice;
+var join = cachedCtrs.Array.prototype.join;
+var toNumber = require('to-number-x').toNumber2018;
+var toInteger = require('to-integer-x').toInteger2018;
+var numberIsFinite = require('is-finite-x');
+var numToString = require('number-to-decimal-form-string-x');
 var toStr = require('to-string-x');
 var mathClamp = require('math-clamp-x');
-var isNull = require('lodash.isnull');
+var isNil = require('is-nil-x');
+
+var isArgSupplied = function _isArgSupplied(args, index) {
+  return args.length > index && isNil(args[index]) === false;
+};
 
 /**
  * Format a given number using fixed-point notation, with user specified digit
- * counts and seperators. `ǹull` can be used for optional arguments to denote
- * that the default value is to be used.
+ * counts and seperators. `null` or 'undefined' can be used for optional
+ * arguments to denote that the default value is to be used.
  *
  * @param {number} value - The numerical value to be formatted.
  * @param {number} [digits=2] - The number of digits to appear after the
@@ -30,27 +44,35 @@ var isNull = require('lodash.isnull');
  * @example
  * var numberFormat = require('number-format-x');
  *
- * numberFormat(12345678.9, 3);  // "12,345,678.900"
- * numberFormat(12345678.9, null, null, '.', ',');  // "12.345.678,90"
- * numberFormat(123456.789, 4, 4, ' ', ':');  // "12 3456:7890"
- * numberFormat(12345678.9, 0, null, '-');       // "12-345-679"
+ * numberFormat(12345678.9, 3); // "12,345,678.900"
+ * numberFormat(12345678.9, null, null, '.', ','); // "12.345.678,90"
+ * numberFormat(123456.789, 4, 4, ' ', ':'); // "12 3456:7890"
+ * numberFormat(12345678.9, 0, null, '-'); // "12-345-679"
  */
 module.exports = function numberFormat(value) {
-  var argsLength = arguments.length;
-  // 'digits' must be >= 0 or <=20 otherwise an RangeError is thrown by Number#toFixed.
-  var digits = argsLength > 1 && isNull(arguments[1]) === false ? mathClamp(toInteger(arguments[1]), 0, 20) : 2;
-  // Formats a number using fixed-point notation.
-  var fixed = toNumber(value).toFixed(digits);
-  var sectionLength = argsLength > 2 && isNull(arguments[2]) === false ? toInteger(arguments[2]) : 3;
-  // Formats a number (string) of fixed-point notation, with user delimeters.
-  var sectionDelimiter = argsLength > 3 && isNull(arguments[3]) === false ? toStr(arguments[3]) : ',';
-  var decimalDelimiter = argsLength > 4 && isNull(arguments[4]) === false ? toStr(arguments[4]) : '.';
-  if (decimalDelimiter !== '.') {
-    fixed = fixed.replace('.', decimalDelimiter);
+  var number = toNumber(value);
+  if (numberIsFinite(number) === false) {
+    return numberToString.call(number);
   }
 
-  return fixed.replace(
-    new RegExp('\\d(?=(\\d{' + sectionLength + '})+' + (digits > 0 ? '\\D' : '$') + ')', 'g'),
+  // 'digits' must be >= 0 or <= 20 otherwise a RangeError is thrown by Number#toFixed.
+  var digits = isArgSupplied(arguments, 1) ? mathClamp(toInteger(arguments[1]), 0, 20) : 2;
+  // Formats a number using fixed-point notation.
+  var fixed = numToString(toFixed.call(number, digits));
+  if (digits > 0) {
+    var parts = split.call(fixed, '.');
+    parts[1] = strSlice.call((parts[1] || '') + '00000000000000000000', 0, digits);
+    fixed = join.call(parts, '.');
+  }
+
+  var sectionLength = isArgSupplied(arguments, 2) ? toInteger(arguments[2]) : 3;
+  // Formats a number (string) of fixed-point notation, with user delimeters.
+  var sectionDelimiter = isArgSupplied(arguments, 3) ? toStr(arguments[3]) : ',';
+  var decimalDelimiter = isArgSupplied(arguments, 4) ? toStr(arguments[4]) : '.';
+
+  return replace.call(
+    decimalDelimiter === '.' ? fixed : replace.call(fixed, '.', decimalDelimiter),
+    new RE('\\d(?=(\\d{' + sectionLength + '})+' + (digits > 0 ? '\\D' : '$') + ')', 'g'),
     '$&' + sectionDelimiter
   );
 };
