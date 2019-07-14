@@ -54,7 +54,7 @@
     "is-nil-x": "^2.0.4",
     "math-clamp-x": "^1.2.0",
     "number-to-decimal-form-string-x": "^1.0.1",
-    "to-integer-x": "^3.0.0",
+    "to-integer-x": "^4.0.1",
     "to-number-x": "^3.0.5",
     "to-string-x": "^2.0.14"
   },
