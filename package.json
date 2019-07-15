@@ -53,7 +53,7 @@
     "is-finite-x": "^4.0.5",
     "is-nil-x": "^2.0.5",
     "math-clamp-x": "^3.0.0",
-    "number-to-decimal-form-string-x": "^1.0.1",
+    "number-to-decimal-form-string-x": "^2.0.0",
     "to-integer-x": "^4.0.5",
     "to-number-x": "^3.0.6",
     "to-string-x": "^2.0.15"
