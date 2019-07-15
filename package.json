@@ -49,14 +49,14 @@
     "url": "https://github.com/Xotic750/number-format-x/issues"
   },
   "dependencies": {
-    "cached-constructors-x": "^2.0.3",
-    "is-finite-x": "^4.0.5",
-    "is-nil-x": "^2.0.5",
-    "math-clamp-x": "^3.0.0",
-    "number-to-decimal-form-string-x": "^2.0.0",
-    "to-integer-x": "^4.0.5",
-    "to-number-x": "^3.0.6",
-    "to-string-x": "^2.0.15"
+    "cached-constructors-x": "^2.0.4",
+    "is-finite-x": "^4.0.6",
+    "is-nil-x": "^2.0.6",
+    "math-clamp-x": "^3.0.2",
+    "number-to-decimal-form-string-x": "^2.0.1",
+    "to-integer-x": "^4.0.8",
+    "to-number-x": "^3.0.8",
+    "to-string-x": "^2.0.16"
   },
   "devDependencies": {
     "@babel/cli": "^7.5.0",
