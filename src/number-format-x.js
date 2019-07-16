@@ -7,7 +7,14 @@
  * @module number-format-x
  */
 
-const cachedCtrs = require('cached-constructors-x');
+import cachedCtrs from 'cached-constructors-x';
+import {toNumber2018 as toNumber} from 'to-number-x';
+import {toInteger2018 as toInteger} from 'to-integer-x';
+import numberIsFinite from 'is-finite-x';
+import numToString from 'number-to-decimal-form-string-x';
+import toStr from 'to-string-x';
+import mathClamp from 'math-clamp-x';
+import isNil from 'is-nil-x';
 
 const RE = cachedCtrs.RegExp;
 const {toFixed} = cachedCtrs.Number.prototype;
@@ -16,13 +23,6 @@ const {replace} = cachedCtrs.String.prototype;
 const {split} = cachedCtrs.String.prototype;
 const strSlice = cachedCtrs.String.prototype.slice;
 const {join} = cachedCtrs.Array.prototype;
-const toNumber = require('to-number-x').toNumber2018;
-const toInteger = require('to-integer-x').toInteger2018;
-const numberIsFinite = require('is-finite-x');
-const numToString = require('number-to-decimal-form-string-x');
-const toStr = require('to-string-x');
-const mathClamp = require('math-clamp-x');
-const isNil = require('is-nil-x');
 
 const isArgSupplied = function _isArgSupplied(args, index) {
   return args.length > index && isNil(args[index]) === false;
@@ -48,7 +48,7 @@ const isArgSupplied = function _isArgSupplied(args, index) {
  * numberFormat(123456.789, 4, 4, ' ', ':'); // "12 3456:7890"
  * numberFormat(12345678.9, 0, null, '-'); // "12-345-679"
  */
-module.exports = function numberFormat(value) {
+export default function numberFormat(value) {
   const number = toNumber(value);
 
   if (numberIsFinite(number) === false) {
@@ -76,4 +76,4 @@ module.exports = function numberFormat(value) {
     new RE(`\\d(?=(\\d{${sectionLength}})+${digits > 0 ? '\\D' : '$'})`, 'g'),
     `$&${sectionDelimiter}`,
   );
-};
+}
