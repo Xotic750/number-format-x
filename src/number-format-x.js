@@ -1,12 +1,3 @@
-/**
- * @file Format a number.
- * @version 3.0.0
- * @author Xotic750 <Xotic750@gmail.com>
- * @copyright  Xotic750
- * @license {@link <https://opensource.org/licenses/MIT> MIT}
- * @module number-format-x
- */
-
 import cachedCtrs from 'cached-constructors-x';
 import {toNumber2018 as toNumber} from 'to-number-x';
 import {toInteger2018 as toInteger} from 'to-integer-x';
@@ -40,13 +31,6 @@ const isArgSupplied = function _isArgSupplied(args, index) {
  * @param {string} [sectionDelimiter=,] - Integer part section delimiter.
  * @param {string} [decimalDelimiter=.] - Decimal delimiter.
  * @returns {string} The numerical value with the choosen formatting.
- * @example
- * var numberFormat = require('number-format-x');
- *
- * numberFormat(12345678.9, 3); // "12,345,678.900"
- * numberFormat(12345678.9, null, null, '.', ','); // "12.345.678,90"
- * numberFormat(123456.789, 4, 4, ' ', ':'); // "12 3456:7890"
- * numberFormat(12345678.9, 0, null, '-'); // "12-345-679"
  */
 export default function numberFormat(value) {
   const number = toNumber(value);
