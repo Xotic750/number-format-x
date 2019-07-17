@@ -32,7 +32,7 @@ const isArgSupplied = function _isArgSupplied(args, index) {
  * @param {string} [decimalDelimiter=.] - Decimal delimiter.
  * @returns {string} The numerical value with the choosen formatting.
  */
-export default function numberFormat(value) {
+const numberFormat = function numberFormat(value) {
   const number = toNumber(value);
 
   if (numberIsFinite(number) === false) {
@@ -60,4 +60,6 @@ export default function numberFormat(value) {
     new RE(`\\d(?=(\\d{${sectionLength}})+${digits > 0 ? '\\D' : '$'})`, 'g'),
     `$&${sectionDelimiter}`,
   );
-}
+};
+
+export default numberFormat;
