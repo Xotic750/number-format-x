@@ -1,6 +1,6 @@
 {
   "name": "number-format-x",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "Format a number.",
   "homepage": "https://github.com/Xotic750/number-format-x",
   "author": {
@@ -49,13 +49,13 @@
     "url": "https://github.com/Xotic750/number-format-x/issues"
   },
   "dependencies": {
-    "is-finite-x": "^4.0.12",
-    "is-nil-x": "^2.0.12",
-    "math-clamp-x": "^3.0.9",
-    "number-to-decimal-form-string-x": "^2.0.6",
-    "to-integer-x": "^4.0.15",
-    "to-number-x": "^3.0.15",
-    "to-string-x": "^2.0.21"
+    "is-finite-x": "^4.0.14",
+    "is-nil-x": "^2.0.14",
+    "math-clamp-x": "^3.0.11",
+    "number-to-decimal-form-string-x": "^2.0.7",
+    "to-integer-x": "^4.0.17",
+    "to-number-x": "^3.0.17",
+    "to-string-x": "^2.0.23"
   },
   "devDependencies": {
     "@babel/cli": "^7.5.5",
