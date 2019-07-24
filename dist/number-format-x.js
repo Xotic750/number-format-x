@@ -2,13 +2,13 @@
 {
   "author": "Graham Fairweather",
   "copywrite": "Copyright (c) 2017",
-  "date": "2019-07-24T01:32:28.709Z",
+  "date": "2019-07-24T17:56:43.576Z",
   "describe": "",
   "description": "Format a number.",
   "file": "number-format-x.js",
   "hash": "dc7ce76e08553b404d58",
   "license": "MIT",
-  "version": "4.0.5"
+  "version": "4.0.6"
 }
 */
 (function webpackUniversalModuleDefinition(root, factory) {
