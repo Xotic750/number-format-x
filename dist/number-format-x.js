@@ -2,11 +2,11 @@
 {
   "author": "Graham Fairweather",
   "copywrite": "Copyright (c) 2017",
-  "date": "2019-07-27T22:21:48.261Z",
+  "date": "2019-07-29T15:32:23.012Z",
   "describe": "",
   "description": "Format a number.",
   "file": "number-format-x.js",
-  "hash": "ed24a5d6dd09a32868fb",
+  "hash": "60f5da0006a4db079bca",
   "license": "MIT",
   "version": "4.0.9"
 }
@@ -1643,8 +1643,42 @@ var number_format_x_esm_ref = '',
     strSlice = number_format_x_esm_ref.slice;
 var number_format_x_esm_join = [].join;
 
-var isArgSupplied = function _isArgSupplied(args, index) {
+var number_format_x_esm_isArgSupplied = function isArgSupplied(args, index) {
   return args.length > index && is_nil_x_esm(args[index]) === false;
+};
+
+var number_format_x_esm_getOpts = function getOpts(args) {
+  return {
+    sectionLength: number_format_x_esm_isArgSupplied(args, 2) ? to_integer_x_esm(args[2]) : 3,
+
+    /* Formats a number (string) of fixed-point notation, with user delimeters. */
+    sectionDelimiter: number_format_x_esm_isArgSupplied(args, 3) ? to_string_x_esm(args[3]) : ',',
+    decimalDelimiter: number_format_x_esm_isArgSupplied(args, 4) ? to_string_x_esm(args[4]) : '.'
+  };
+};
+
+var number_format_x_esm_getFixed = function getFixed(number, digits) {
+  var fixed = number_to_decimal_form_string_x_esm(toFixed.call(number, digits));
+
+  if (digits > 0) {
+    var parts = split.call(fixed, '.');
+    parts[1] = strSlice.call("".concat(parts[1] || '', "00000000000000000000"), 0, digits);
+    return number_format_x_esm_join.call(parts, '.');
+  }
+
+  return fixed;
+};
+
+var getFixedReplaced = function getFixedReplaced(fixed, decimalDelimiter) {
+  if (decimalDelimiter === '.') {
+    return fixed;
+  }
+
+  return number_format_x_esm_replace.call(fixed, '.', decimalDelimiter);
+};
+
+var getRegex = function getRegex(digits, sectionLength) {
+  return new RE("\\d(?=(\\d{".concat(sectionLength, "})+").concat(digits > 0 ? '\\D' : '$', ")"), 'g');
 }; // eslint-disable jsdoc/check-param-names
 // noinspection JSCommentMatchesSignature
 
@@ -1659,7 +1693,7 @@ var isArgSupplied = function _isArgSupplied(args, index) {
  * @param {number} [sectionLength=3] - Length of integer part sections.
  * @param {string} [sectionDelimiter=,] - Integer part section delimiter.
  * @param {string} [decimalDelimiter=.] - Decimal delimiter.
- * @returns {string} The numerical value with the choosen formatting.
+ * @returns {string} The numerical value with the chosen formatting.
  */
 // eslint-enable jsdoc/check-param-names
 
@@ -1669,32 +1703,24 @@ var number_format_x_esm_numberFormat = function numberFormat(value) {
 
   if (is_finite_x_esm(number) === false) {
     return numberToString.call(number);
-  } // 'digits' must be >= 0 or <= 20 otherwise a RangeError is thrown by Number#toFixed.
-
-  /* eslint-disable-next-line prefer-rest-params */
-
-
-  var digits = isArgSupplied(arguments, 1) ? math_clamp_x_esm(to_integer_x_esm(arguments[1]), 0, 20) : 2; // Formats a number using fixed-point notation.
-
-  var fixed = number_to_decimal_form_string_x_esm(toFixed.call(number, digits));
-
-  if (digits > 0) {
-    var parts = split.call(fixed, '.');
-    parts[1] = strSlice.call("".concat(parts[1] || '', "00000000000000000000"), 0, digits);
-    fixed = number_format_x_esm_join.call(parts, '.');
   }
-  /* eslint-disable-next-line prefer-rest-params */
-
-
-  var sectionLength = isArgSupplied(arguments, 2) ? to_integer_x_esm(arguments[2]) : 3; // Formats a number (string) of fixed-point notation, with user delimeters.
+  /* 'digits' must be >= 0 or <= 20 otherwise a RangeError is thrown by Number#toFixed. */
 
   /* eslint-disable-next-line prefer-rest-params */
 
-  var sectionDelimiter = isArgSupplied(arguments, 3) ? to_string_x_esm(arguments[3]) : ',';
+
+  var digits = number_format_x_esm_isArgSupplied(arguments, 1) ? math_clamp_x_esm(to_integer_x_esm(arguments[1]), 0, 20) : 2;
+  /* Formats a number using fixed-point notation. */
+
+  var fixed = number_format_x_esm_getFixed(number, digits);
   /* eslint-disable-next-line prefer-rest-params */
 
-  var decimalDelimiter = isArgSupplied(arguments, 4) ? to_string_x_esm(arguments[4]) : '.';
-  return number_format_x_esm_replace.call(decimalDelimiter === '.' ? fixed : number_format_x_esm_replace.call(fixed, '.', decimalDelimiter), new RE("\\d(?=(\\d{".concat(sectionLength, "})+").concat(digits > 0 ? '\\D' : '$', ")"), 'g'), "$&".concat(sectionDelimiter));
+  var _getOpts = number_format_x_esm_getOpts(arguments),
+      sectionLength = _getOpts.sectionLength,
+      sectionDelimiter = _getOpts.sectionDelimiter,
+      decimalDelimiter = _getOpts.decimalDelimiter;
+
+  return number_format_x_esm_replace.call(getFixedReplaced(fixed, decimalDelimiter), getRegex(digits, sectionLength), "$&".concat(sectionDelimiter));
 };
 
 /* harmony default export */ var number_format_x_esm = __webpack_exports__["default"] = (number_format_x_esm_numberFormat);

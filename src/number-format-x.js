@@ -11,8 +11,42 @@ const {toFixed, toString: numberToString} = 0;
 const {replace, split, slice: strSlice} = '';
 const {join} = [];
 
-const isArgSupplied = function _isArgSupplied(args, index) {
+const isArgSupplied = function isArgSupplied(args, index) {
   return args.length > index && isNil(args[index]) === false;
+};
+
+const getOpts = function getOpts(args) {
+  return {
+    sectionLength: isArgSupplied(args, 2) ? toInteger(args[2]) : 3,
+    /* Formats a number (string) of fixed-point notation, with user delimeters. */
+    sectionDelimiter: isArgSupplied(args, 3) ? toStr(args[3]) : ',',
+    decimalDelimiter: isArgSupplied(args, 4) ? toStr(args[4]) : '.',
+  };
+};
+
+const getFixed = function getFixed(number, digits) {
+  const fixed = numToString(toFixed.call(number, digits));
+
+  if (digits > 0) {
+    const parts = split.call(fixed, '.');
+    parts[1] = strSlice.call(`${parts[1] || ''}00000000000000000000`, 0, digits);
+
+    return join.call(parts, '.');
+  }
+
+  return fixed;
+};
+
+const getFixedReplaced = function getFixedReplaced(fixed, decimalDelimiter) {
+  if (decimalDelimiter === '.') {
+    return fixed;
+  }
+
+  return replace.call(fixed, '.', decimalDelimiter);
+};
+
+const getRegex = function getRegex(digits, sectionLength) {
+  return new RE(`\\d(?=(\\d{${sectionLength}})+${digits > 0 ? '\\D' : '$'})`, 'g');
 };
 
 // eslint-disable jsdoc/check-param-names
@@ -28,7 +62,7 @@ const isArgSupplied = function _isArgSupplied(args, index) {
  * @param {number} [sectionLength=3] - Length of integer part sections.
  * @param {string} [sectionDelimiter=,] - Integer part section delimiter.
  * @param {string} [decimalDelimiter=.] - Decimal delimiter.
- * @returns {string} The numerical value with the choosen formatting.
+ * @returns {string} The numerical value with the chosen formatting.
  */
 // eslint-enable jsdoc/check-param-names
 const numberFormat = function numberFormat(value) {
@@ -38,31 +72,15 @@ const numberFormat = function numberFormat(value) {
     return numberToString.call(number);
   }
 
-  // 'digits' must be >= 0 or <= 20 otherwise a RangeError is thrown by Number#toFixed.
+  /* 'digits' must be >= 0 or <= 20 otherwise a RangeError is thrown by Number#toFixed. */
   /* eslint-disable-next-line prefer-rest-params */
   const digits = isArgSupplied(arguments, 1) ? mathClamp(toInteger(arguments[1]), 0, 20) : 2;
-  // Formats a number using fixed-point notation.
-  let fixed = numToString(toFixed.call(number, digits));
-
-  if (digits > 0) {
-    const parts = split.call(fixed, '.');
-    parts[1] = strSlice.call(`${parts[1] || ''}00000000000000000000`, 0, digits);
-    fixed = join.call(parts, '.');
-  }
-
+  /* Formats a number using fixed-point notation. */
+  const fixed = getFixed(number, digits);
   /* eslint-disable-next-line prefer-rest-params */
-  const sectionLength = isArgSupplied(arguments, 2) ? toInteger(arguments[2]) : 3;
-  // Formats a number (string) of fixed-point notation, with user delimeters.
-  /* eslint-disable-next-line prefer-rest-params */
-  const sectionDelimiter = isArgSupplied(arguments, 3) ? toStr(arguments[3]) : ',';
-  /* eslint-disable-next-line prefer-rest-params */
-  const decimalDelimiter = isArgSupplied(arguments, 4) ? toStr(arguments[4]) : '.';
+  const {sectionLength, sectionDelimiter, decimalDelimiter} = getOpts(arguments);
 
-  return replace.call(
-    decimalDelimiter === '.' ? fixed : replace.call(fixed, '.', decimalDelimiter),
-    new RE(`\\d(?=(\\d{${sectionLength}})+${digits > 0 ? '\\D' : '$'})`, 'g'),
-    `$&${sectionDelimiter}`,
-  );
+  return replace.call(getFixedReplaced(fixed, decimalDelimiter), getRegex(digits, sectionLength), `$&${sectionDelimiter}`);
 };
 
 export default numberFormat;
