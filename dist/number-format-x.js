@@ -2,7 +2,7 @@
 {
   "author": "Graham Fairweather",
   "copywrite": "Copyright (c) 2017",
-  "date": "2019-08-07T02:09:15.894Z",
+  "date": "2019-08-07T23:06:01.316Z",
   "describe": "",
   "description": "Format a number.",
   "file": "number-format-x.js",
