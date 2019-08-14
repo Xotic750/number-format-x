@@ -1,6 +1,6 @@
 {
   "name": "number-format-x",
-  "version": "4.0.10",
+  "version": "4.1.0",
   "description": "Format a number.",
   "homepage": "https://github.com/Xotic750/number-format-x",
   "author": {
@@ -51,13 +51,13 @@
     "url": "https://github.com/Xotic750/number-format-x/issues"
   },
   "dependencies": {
-    "is-finite-x": "^4.0.26",
-    "is-nil-x": "^2.0.26",
-    "math-clamp-x": "^3.0.23",
-    "number-to-decimal-form-string-x": "^2.0.18",
-    "to-integer-x": "^4.0.29",
-    "to-number-x": "^3.0.29",
-    "to-string-x": "^2.0.35"
+    "is-finite-x": "^4.2.0",
+    "is-nil-x": "^2.1.0",
+    "math-clamp-x": "^3.2.0",
+    "number-to-decimal-form-string-x": "^2.1.0",
+    "to-integer-x": "^4.2.0",
+    "to-number-x": "^3.2.0",
+    "to-string-x": "^2.1.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.5.5",
@@ -70,7 +70,7 @@
     "@types/jest": "^24.0.17",
     "@types/node": "^12.7.1",
     "@types/webpack": "^4.32.1",
-    "@xotic750/eslint-config-recommended": "^1.1.1",
+    "@xotic750/eslint-config-recommended": "^1.1.2",
     "babel-core": "^7.0.0-0",
     "babel-eslint": "^10.0.2",
     "babel-loader": "^8.0.6",
@@ -88,7 +88,7 @@
     "eslint-plugin-eslint-comments": "^3.1.2",
     "eslint-plugin-html": "^6.0.0",
     "eslint-plugin-import": "^2.18.2",
-    "eslint-plugin-jest": "^22.15.0",
+    "eslint-plugin-jest": "^22.15.1",
     "eslint-plugin-jsdoc": "^15.8.0",
     "eslint-plugin-json": "^1.4.0",
     "eslint-plugin-lodash": "^6.0.0",
