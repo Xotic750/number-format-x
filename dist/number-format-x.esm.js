@@ -5,15 +5,18 @@ import numToString from 'number-to-decimal-form-string-x';
 import toStr from 'to-string-x';
 import mathClamp from 'math-clamp-x';
 import isNil from 'is-nil-x';
+import methodize from 'simple-methodize-x';
 var RE = /none/.constructor;
-var _ = 0,
-    toFixed = _.toFixed,
-    numberToString = _.toString;
-var _ref = '',
-    replace = _ref.replace,
-    split = _ref.split,
-    strSlice = _ref.slice;
-var join = [].join;
+var MAX_TO_FIXED = 20;
+var toFixed = methodize(MAX_TO_FIXED.toFixed);
+var numberToString = methodize(MAX_TO_FIXED.toString);
+var SECTION_DELIMITER = ',';
+var DECIMAL_DELIMITER = '.';
+var EMPTY_STRING = '';
+var replace = methodize(EMPTY_STRING.replace);
+var split = methodize(EMPTY_STRING.split);
+var strSlice = methodize(EMPTY_STRING.slice);
+var join = methodize([].join);
 
 var isArgSupplied = function isArgSupplied(args, index) {
   return args.length > index && isNil(args[index]) === false;
@@ -24,29 +27,29 @@ var getOpts = function getOpts(args) {
     sectionLength: isArgSupplied(args, 2) ? toInteger(args[2]) : 3,
 
     /* Formats a number (string) of fixed-point notation, with user delimeters. */
-    sectionDelimiter: isArgSupplied(args, 3) ? toStr(args[3]) : ',',
-    decimalDelimiter: isArgSupplied(args, 4) ? toStr(args[4]) : '.'
+    sectionDelimiter: isArgSupplied(args, 3) ? toStr(args[3]) : SECTION_DELIMITER,
+    decimalDelimiter: isArgSupplied(args, 4) ? toStr(args[4]) : DECIMAL_DELIMITER
   };
 };
 
 var getFixed = function getFixed(number, digits) {
-  var fixed = numToString(toFixed.call(number, digits));
+  var fixed = numToString(toFixed(number, digits));
 
   if (digits > 0) {
-    var parts = split.call(fixed, '.');
-    parts[1] = strSlice.call("".concat(parts[1] || '', "00000000000000000000"), 0, digits);
-    return join.call(parts, '.');
+    var parts = split(fixed, DECIMAL_DELIMITER);
+    parts[1] = strSlice("".concat(parts[1] || EMPTY_STRING, "00000000000000000000"), 0, digits);
+    return join(parts, DECIMAL_DELIMITER);
   }
 
   return fixed;
 };
 
 var getFixedReplaced = function getFixedReplaced(fixed, decimalDelimiter) {
-  if (decimalDelimiter === '.') {
+  if (decimalDelimiter === DECIMAL_DELIMITER) {
     return fixed;
   }
 
-  return replace.call(fixed, '.', decimalDelimiter);
+  return replace(fixed, DECIMAL_DELIMITER, decimalDelimiter);
 };
 
 var getRegex = function getRegex(digits, sectionLength) {
@@ -74,14 +77,14 @@ var numberFormat = function numberFormat(value) {
   var number = toNumber(value);
 
   if (numberIsFinite(number) === false) {
-    return numberToString.call(number);
+    return numberToString(number);
   }
   /* 'digits' must be >= 0 or <= 20 otherwise a RangeError is thrown by Number#toFixed. */
 
   /* eslint-disable-next-line prefer-rest-params */
 
 
-  var digits = isArgSupplied(arguments, 1) ? mathClamp(toInteger(arguments[1]), 0, 20) : 2;
+  var digits = isArgSupplied(arguments, 1) ? mathClamp(toInteger(arguments[1]), 0, MAX_TO_FIXED) : 2;
   /* Formats a number using fixed-point notation. */
 
   var fixed = getFixed(number, digits);
@@ -92,7 +95,7 @@ var numberFormat = function numberFormat(value) {
       sectionDelimiter = _getOpts.sectionDelimiter,
       decimalDelimiter = _getOpts.decimalDelimiter;
 
-  return replace.call(getFixedReplaced(fixed, decimalDelimiter), getRegex(digits, sectionLength), "$&".concat(sectionDelimiter));
+  return replace(getFixedReplaced(fixed, decimalDelimiter), getRegex(digits, sectionLength), "$&".concat(sectionDelimiter));
 };
 
 export default numberFormat;

@@ -55,6 +55,7 @@
     "is-nil-x": "^2.1.0",
     "math-clamp-x": "^3.2.0",
     "number-to-decimal-form-string-x": "^2.1.0",
+    "simple-methodize-x": "^1.0.2",
     "to-integer-x": "^4.2.0",
     "to-number-x": "^3.2.0",
     "to-string-x": "^2.1.0"
