@@ -1,6 +1,6 @@
 {
   "name": "number-format-x",
-  "version": "4.1.0",
+  "version": "4.1.1",
   "description": "Format a number.",
   "homepage": "https://github.com/Xotic750/number-format-x",
   "author": {
@@ -53,11 +53,11 @@
   "dependencies": {
     "is-finite-x": "^4.2.0",
     "is-nil-x": "^2.1.0",
-    "math-clamp-x": "^3.2.0",
-    "number-to-decimal-form-string-x": "^2.1.0",
-    "simple-methodize-x": "^1.0.2",
-    "to-integer-x": "^4.2.0",
-    "to-number-x": "^3.2.0",
+    "math-clamp-x": "^3.2.1",
+    "number-to-decimal-form-string-x": "^2.1.1",
+    "simple-methodize-x": "^1.0.3",
+    "to-integer-x": "^4.2.1",
+    "to-number-x": "^3.2.1",
     "to-string-x": "^2.1.0"
   },
   "devDependencies": {
